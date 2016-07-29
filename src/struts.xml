@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.action.extension" value="action" />
+    <constant name="struts.serve.static.browserCache" value="false" />
+
+    <package name="Action" extends="struts-default">
+        <action name="login" class="loginAction">
+            <result name="success">/main.jsp</result>
+            <result name="failed">/index.jsp</result>
+        </action>
+
+        <action name="logout" class="logoutAction">
+            <result name="return">/index.jsp</result>
+        </action>
+
+        <action name="register" class="RegisterAction">
+            <result name="index" type="chain">
+                <param name = "actionName">profileInsert</param>
+                <param name = "packageName">Action</param>
+            </result>
+            <result name="failed">/index.jsp</result>
+        </action>
+
+        <action name="searchBook" class="searchBooks">
+            <result name="admin">/main.jsp</result>
+            <result name="return">/main.jsp</result>
+        </action>
+        
+        <action name="searchBookHL" class="searchBookHL">
+            <result name="admin">/searchBook.jsp</result>
+            <result name="return">/searchBook.jsp</result>
+        </action>
+
+        <action name="searchAllbook" class="searchAllBook">
+            <result name="admin">/AllBook.jsp</result>
+            <result name="return">/AllBook.jsp</result>
+        </action>
+
+        <action name="manageBook" class="manageBook">
+            <result name="admin">/ManageBook.jsp</result>
+            <result name="return">/ManageBook.jsp</result>
+        </action>
+
+        <action name="deleteBook" class="deleteBook">
+            <result name="admin">/ManageBook.jsp</result>
+            <result name="index">/ManageBook.jsp</result>
+        </action>
+
+        <action name="addBook" class="updateBook">
+            <result name="return" type="chain">
+                <param name = "actionName">bookProfileInsert</param>
+                <param name = "packageName">Action</param>
+            </result>
+            <result name="admin" type="chain">
+                <param name = "actionName">bookProfileInsert</param>
+                <param name = "packageName">Action</param>
+            </result>
+        </action>
+
+        <action name="queryUser" class="queryUser">
+            <result name="return">/ManageUser.jsp</result>
+        </action>
+
+        <action name="deleteUser" class="deleteUser">
+            <result name="return" type="chain">
+                <param name = "actionName">profileDelete</param>
+                <param name = "packageName">Action</param>
+            </result>
+        </action>
+
+        <action name="changeUser" class="changeUser">
+            <result name="return">/ManageUser.jsp</result>
+        </action>
+
+        <action name="updateCart" class="updateCart">
+            <result name="return">/MyCart.jsp</result>
+        </action>
+
+        <action name="deleteCart" class="deleteCart">
+            <result name="return">/MyCart.jsp</result>
+        </action>
+
+        <action name="showCart" class="showCart">
+            <result name="return">/MyCart.jsp</result>
+        </action>
+
+        <action name="addCart" class="addCart">
+            <result name="return">/MyCart.jsp</result>
+        </action>
+
+        <action name="minusCart" class="minusCart">
+            <result name="return">/MyCart.jsp</result>
+        </action>
+
+        <action name="payCart" class="pay">
+            <result name="success">/MyCart.jsp</result>
+            <result name="failed">/MyCart.jsp</result>
+        </action>
+
+        <action name="history" class="history">
+            <result name="return">/History.jsp</result>
+        </action>
+
+        <action name="statUser" class="statUser">
+            <result name="return">/Stat.jsp</result>
+        </action>
+
+        <action name="statCat" class="statCat">
+            <result name="return">/StatCategory.jsp</result>
+        </action>
+
+        <action name="statBook" class="statBook">
+            <result name="return">/StatBook.jsp</result>
+        </action>
+
+        <action name="statDate" class="statDate">
+            <result name="return">/StatDate.jsp</result>
+        </action>
+
+        <action name="profileInsert" class="com.aciton.InsertUserProfileAction">
+            <result name="return" type="chain">
+                <param name = "actionName">profileUpdate</param>
+                <param name = "packageName">Action</param>
+            </result>
+        </action>
+
+        <action name="profileUpdate" class="com.aciton.UpdateUserProfileAction">
+            <result name="return">/main.jsp</result>
+        </action>
+
+        <action name="profileQuery" class="com.aciton.QueryUserProfileAction">
+            <result name="return">/Settings.jsp</result>
+        </action>
+
+        <action name="profileDelete" class="com.aciton.DeleteUserProfileAction">
+            <result name="return">/ManageUser.jsp</result>
+        </action>
+
+
+        <action name="bookProfileInsert" class="com.aciton.InsertBookProfile">
+            <result name="return" type="chain">
+                <param name = "actionName">bookProfileUpdate</param>
+                <param name = "packageName">Action</param>
+            </result>
+        </action>
+
+        <action name="bookProfileUpdate" class="com.aciton.UpdateBookProfile">
+            <result name="return">/ManageBook.jsp</result>
+        </action>
+
+    </package>
+
+    <package name="ajax" extends="struts-default">
+        <action name="Tips" class="com.aciton.TipsAction">
+            <result name="return">/ajax.js</result>
+        </action>
+    </package>
+</struts>

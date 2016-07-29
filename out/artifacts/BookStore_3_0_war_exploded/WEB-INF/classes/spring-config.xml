@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="annotatedClasses">
+            <list>
+                <value>com.entity.BooksEntity</value>
+                <value>com.entity.OrdersEntity</value>
+                <value>com.entity.UsersEntity</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/my_bookstore</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="dialect">com.entity.MyLocalDialect</prop>
+                <prop key="hibernate.connection.username">root</prop>
+                <prop key="hibernate.connection.password">root</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="userDao" class = "com.dao.UserDaoImp">
+        <property name = "sessionFactory" ref = "sessionFactory" />
+    </bean>
+
+    <bean id="bookDao" class = "com.dao.BookDaoImp">
+        <property name = "sessionFactory" ref = "sessionFactory" />
+    </bean>
+
+    <bean id="orderDao" class = "com.dao.OrderDaoImp">
+        <property name = "sessionFactory" ref = "sessionFactory" />
+    </bean>
+
+    <bean id="userService" class="com.service.UserService">
+        <property name="dao" ref="userDao" />
+    </bean>
+
+    <bean id="bookService" class="com.service.BookService">
+        <property name="dao" ref="bookDao"/>
+    </bean>
+
+    <bean id="orderService" class="com.service.OrderService">
+        <property name="dao" ref="orderDao"/>
+    </bean>
+
+    <bean id="loginAction" class="com.aciton.loginAction">
+        <property name="userService" ref="userService" />
+    </bean>
+
+    <bean id="logoutAction" class="com.aciton.LogOutAction">
+    </bean>
+
+    <bean id="RegisterAction" class="com.aciton.RegisterAction">
+        <property name="userService" ref="userService" />
+    </bean>
+
+    <bean id="searchBooks" class="com.aciton.QueryBookAction">
+        <property name="bookService" ref="bookService" />
+        <property name="method">
+            <value>title</value>
+        </property>
+    </bean>
+
+    <bean id="searchBookHL" class="com.aciton.QueryBookAction">
+        <property name="bookService" ref="bookService" />
+    </bean>
+
+    <bean id="searchAllBook" class="com.aciton.QueryBookAction">
+        <property name="bookService" ref="bookService" />
+        <property name="method">
+            <value>title</value>
+        </property>
+    </bean>
+
+    <bean id="manageBook" class="com.aciton.QueryBookAction">
+        <property name="bookService" ref="bookService" />
+        <property name="method">
+            <value>title</value>
+        </property>
+    </bean>
+
+    <bean id="deleteBook" class="com.aciton.DeleteBookAction">
+        <property name="bookService" ref="bookService" />
+    </bean>
+
+    <bean id="updateBook" class="com.aciton.UpdateBookAction">
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+    <bean id="queryUser" class="com.aciton.QueryUserAction">
+        <property name="userService" ref="userService" />
+    </bean>
+
+    <bean id="deleteUser" class="com.aciton.DeleteUserAction">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="changeUser" class="com.aciton.ChangeUser">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="updateCart" class="com.aciton.updateCart">
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+    <bean id="deleteCart" class="com.aciton.DeleteCart">
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+    <bean id="showCart" class="com.aciton.LookCart">
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+    <bean id="addCart" class="com.aciton.AddCart">
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+    <bean id="minusCart" class="com.aciton.MinusCart">
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+    <bean id="pay" class="com.aciton.PayAction">
+        <property name="orderService" ref="orderService"/>
+    </bean>
+
+    <bean id="history" class="com.aciton.ShowHistory">
+        <property name="orderService" ref="orderService"/>
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+    <bean id="statUser" class="com.aciton.StatUser">
+        <property name="orderService" ref="orderService"/>
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="statCat" class="com.aciton.StatCategory">
+        <property name="orderService" ref="orderService"/>
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+
+    <bean id="statBook" class="com.aciton.StatBook">
+        <property name="orderService" ref="orderService"/>
+        <property name="bookService" ref="bookService"/>
+    </bean>
+
+    <bean id="statDate" class="com.aciton.StatDate">
+        <property name="orderService" ref="orderService"/>
+        <property name="bookService" ref="bookService"/>
+    </bean>
+</beans>
